@@ -1,14 +1,24 @@
 import { useState } from "react";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
 
+/* ─── FONTS ─────────────────────────────────────────────────────────────────── */
 const FONT_LINK = "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap";
 
+/* ─── THEME ─────────────────────────────────────────────────────────────────── */
 const C = {
-  brand: "#3b5bdb", bg: "#f4f5f7", white: "#ffffff", text: "#0d1b2a",
-  muted: "#6b7280", border: "#e5e7eb", green: "#22c55e", orange: "#f59e0b",
-  red: "#ef4444", blue: "#3b5bdb",
+  brand: "#3b5bdb",
+  bg: "#f4f5f7",
+  white: "#ffffff",
+  text: "#0d1b2a",
+  muted: "#6b7280",
+  border: "#e5e7eb",
+  green: "#22c55e",
+  orange: "#f59e0b",
+  red: "#ef4444",
+  blue: "#3b5bdb",
 };
 
+/* ─── MOCK DATA ──────────────────────────────────────────────────────────────── */
 const CHART_DATA = [
   { date: "04-12", revenue: 0, adSpend: 0 },
   { date: "04-16", revenue: 200, adSpend: 80 },
@@ -54,41 +64,63 @@ const CUSTOMERS = [
   { id: 2, name: "Mohamed Ali", email: "mali@example.com", orders: 3, spent: 3300, city: "Alexandria", tier: "Regular" },
   { id: 3, name: "Nour Hassan", email: "nour@example.com", orders: 7, spent: 9100, city: "Giza", tier: "VIP" },
   { id: 4, name: "Yasmine Omar", email: "yas@example.com", orders: 1, spent: 450, city: "Cairo", tier: "New" },
-];const NAV_SECTIONS = [
-  { key: "overview_group", label: null, items: [{ key: "dashboard", label: "Dashboard", icon: "grid" }] },
-  { key: "inventory_group", label: "Inventory", icon: "box", collapsible: true, items: [
-    { key: "stock", label: "Stock Overview", icon: "layers" },
-    { key: "restock", label: "Restock Planner", icon: "clipboard" },
-  ]},
-  { key: "finance_group", label: "Finance", icon: "dollar", collapsible: true, items: [
-    { key: "finance", label: "Finance Dashboard", icon: "grid" },
-    { key: "cod", label: "COD Tracking", icon: "dollar" },
-    { key: "expenses", label: "Expenses", icon: "clipboard" },
-    { key: "profitability", label: "Profitability", icon: "trending" },
-  ]},
-  { key: "operations_group", label: "Operations", icon: "truck", collapsible: true, items: [
-    { key: "orders", label: "Orders", icon: "orders" },
-    { key: "returns", label: "Returns", icon: "returns" },
-    { key: "failed", label: "Failed Deliveries", icon: "alert" },
-  ]},
-  { key: "pos_group", label: "POS / Bazaar", icon: "store", collapsible: true, items: [
-    { key: "pos", label: "POS Interface", icon: "cart" },
-    { key: "events", label: "Events", icon: "calendar" },
-    { key: "history", label: "History", icon: "clock" },
-  ]},
-  { key: "hr_group", label: "HR", icon: "users", collapsible: true, items: [
-    { key: "hr", label: "Team", icon: "users" },
-  ]},
-  { key: "crm_group", label: "CRM", icon: "mail", collapsible: true, items: [
-    { key: "crm", label: "Customers", icon: "mail" },
-  ]},
-  { key: "settings_group", label: "Settings", icon: "settings", collapsible: true, items: [
-    { key: "integrations", label: "Integrations", icon: "settings" },
-    { key: "brand_settings", label: "Brand Settings", icon: "store" },
-    { key: "team", label: "Team", icon: "users" },
-  ]},
 ];
 
+/* ─── NAV STRUCTURE ──────────────────────────────────────────────────────────── */
+const NAV_SECTIONS = [
+  {
+    key: "overview_group", label: null, items: [
+      { key: "dashboard", label: "Dashboard", icon: "grid" },
+    ]
+  },
+  {
+    key: "inventory_group", label: "Inventory", icon: "box", collapsible: true, items: [
+      { key: "stock", label: "Stock Overview", icon: "layers" },
+      { key: "restock", label: "Restock Planner", icon: "clipboard" },
+    ]
+  },
+  {
+    key: "finance_group", label: "Finance", icon: "dollar", collapsible: true, items: [
+      { key: "finance", label: "Finance Dashboard", icon: "grid" },
+      { key: "cod", label: "COD Tracking", icon: "dollar" },
+      { key: "expenses", label: "Expenses", icon: "clipboard" },
+      { key: "profitability", label: "Profitability", icon: "trending" },
+    ]
+  },
+  {
+    key: "operations_group", label: "Operations", icon: "truck", collapsible: true, items: [
+      { key: "orders", label: "Orders", icon: "orders" },
+      { key: "returns", label: "Returns", icon: "returns" },
+      { key: "failed", label: "Failed Deliveries", icon: "alert" },
+    ]
+  },
+  {
+    key: "pos_group", label: "POS / Bazaar", icon: "store", collapsible: true, items: [
+      { key: "pos", label: "POS Interface", icon: "cart" },
+      { key: "events", label: "Events", icon: "calendar" },
+      { key: "history", label: "History", icon: "clock" },
+    ]
+  },
+  {
+    key: "hr_group", label: "HR", icon: "users", collapsible: true, items: [
+      { key: "hr", label: "Team", icon: "users" },
+    ]
+  },
+  {
+    key: "crm_group", label: "CRM", icon: "mail", collapsible: true, items: [
+      { key: "crm", label: "Customers", icon: "mail" },
+    ]
+  },
+  {
+    key: "settings_group", label: "Settings", icon: "settings", collapsible: true, items: [
+      { key: "integrations", label: "Integrations", icon: "settings" },
+      { key: "brand_settings", label: "Brand Settings", icon: "store" },
+      { key: "team", label: "Team", icon: "users" },
+    ]
+  },
+];
+
+/* ─── SVG ICONS ──────────────────────────────────────────────────────────────── */
 const paths = {
   grid: "M3 3h8v8H3V3zm0 10h8v8H3v-8zm10-10h8v8h-8V3zm0 10h8v8h-8v-8z",
   box: "M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2zM4 5h16v2H4V5z",
@@ -126,6 +158,7 @@ const Ic = ({ name, size = 16, color = "currentColor" }) => (
   </svg>
 );
 
+/* ─── STATUS BADGE ───────────────────────────────────────────────────────────── */
 const Badge = ({ status }) => {
   const map = {
     active: { bg: "#dcfce7", color: "#166534", label: "Active" },
@@ -142,26 +175,39 @@ const Badge = ({ status }) => {
     New: { bg: "#dbeafe", color: "#1e40af", label: "New" },
   };
   const s = map[status] || { bg: "#f3f4f6", color: "#374151", label: status };
-  return <span style={{ background: s.bg, color: s.color, padding: "3px 10px", borderRadius: 99, fontSize: 11, fontWeight: 700 }}>{s.label}</span>;
+  return (
+    <span style={{ background: s.bg, color: s.color, padding: "3px 10px", borderRadius: 99, fontSize: 11, fontWeight: 700 }}>
+      {s.label}
+    </span>
+  );
 };
 
+/* ─── METRIC CARD (matches Brand OS style) ───────────────────────────────────── */
 const MetricCard = ({ label, value, sub, accentColor = C.green, icon }) => (
-  <div style={{ background: C.white, borderRadius: 14, padding: "20px 20px 18px", borderLeft: 4px solid ${accentColor}, boxShadow: "0 1px 3px rgba(0,0,0,0.06)", flex: 1, minWidth: 160 }}>
+  <div style={{
+    background: C.white, borderRadius: 14, padding: "20px 20px 18px",
+    borderLeft: `4px solid ${accentColor}`,
+    boxShadow: "0 1px 3px rgba(0,0,0,0.06)", flex: 1, minWidth: 160,
+  }}>
     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
       <span style={{ fontSize: 11, fontWeight: 700, color: C.muted, letterSpacing: 1, textTransform: "uppercase" }}>{label}</span>
       <Ic name={icon} size={18} color={C.muted} />
     </div>
-    <div style={{ fontSize: 26, fontWeight: 800, color: C.text, marginTop: 10, letterSpacing: -0.5 }}>{value}</div>
+    <div style={{ fontSize: 26, fontWeight: 800, color: C.text, marginTop: 10, letterSpacing: -0.5, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{value}</div>
     {sub && <div style={{ fontSize: 12, color: C.muted, marginTop: 4 }}>{sub}</div>}
   </div>
 );
 
+/* ─── TABLE STYLES ───────────────────────────────────────────────────────────── */
 const TH = ({ children }) => (
-  <th style={{ textAlign: "left", padding: "10px 14px", fontSize: 11, fontWeight: 700, color: C.muted, textTransform: "uppercase", letterSpacing: 0.8, borderBottom: 2px solid ${C.border}, whiteSpace: "nowrap" }}>{children}</th>
+  <th style={{ textAlign: "left", padding: "10px 14px", fontSize: 11, fontWeight: 700, color: C.muted, textTransform: "uppercase", letterSpacing: 0.8, borderBottom: `2px solid ${C.border}`, whiteSpace: "nowrap" }}>{children}</th>
 );
 const TD = ({ children, bold }) => (
-  <td style={{ padding: "13px 14px", fontSize: 13.5, color: bold ? C.text : "#374151", fontWeight: bold ? 700 : 400, borderBottom: 1px solid ${C.border}, verticalAlign: "middle" }}>{children}</td>
-);const BostaModal = ({ order, onClose }) => {
+  <td style={{ padding: "13px 14px", fontSize: 13.5, color: bold ? C.text : "#374151", fontWeight: bold ? 700 : 400, borderBottom: `1px solid ${C.border}`, verticalAlign: "middle" }}>{children}</td>
+);
+
+/* ─── BOSTA SHIP MODAL ───────────────────────────────────────────────────────── */
+const BostaModal = ({ order, onClose }) => {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
 
@@ -175,11 +221,11 @@ const TD = ({ children, bold }) => (
         headers: { "Content-Type": "application/json", Authorization: key },
         body: JSON.stringify({
           type: 10,
-          specs: { packageDetails: { itemsCount: order.items, description: Order ${order.id} } },
+          specs: { packageDetails: { itemsCount: order.items, description: `Order ${order.id}` } },
           cod: order.total,
           dropOffAddress: { city: { name: order.city }, firstLine: "Customer address" },
           receiver: { firstName: order.customer.split(" ")[0], lastName: order.customer.split(" ")[1] || "", phone: "01000000000" },
-          notes: ERP Order ${order.id},
+          notes: `ERP Order ${order.id}`,
         }),
       });
       const data = await res.json();
@@ -214,6 +260,7 @@ const TD = ({ children, bold }) => (
   );
 };
 
+/* ─── API SETTINGS MODAL ─────────────────────────────────────────────────────── */
 const ApiModal = ({ onClose }) => {
   const [shopifyKey, setShopifyKey] = useState(localStorage.getItem("erp_shopify_key") || "");
   const [shopifyStore, setShopifyStore] = useState(localStorage.getItem("erp_shopify_store") || "");
@@ -227,7 +274,7 @@ const ApiModal = ({ onClose }) => {
     setSaved(true); setTimeout(() => setSaved(false), 2000);
   };
 
-  const inp = { width: "100%", padding: "10px 12px", border: 1.5px solid ${C.border}, borderRadius: 8, fontSize: 13, fontFamily: "inherit", outline: "none", boxSizing: "border-box", marginBottom: 10 };
+  const inp = { width: "100%", padding: "10px 12px", border: `1.5px solid ${C.border}`, borderRadius: 8, fontSize: 13, fontFamily: "inherit", outline: "none", boxSizing: "border-box", marginBottom: 10 };
   const lbl = { fontSize: 12, fontWeight: 600, color: C.muted, display: "block", marginBottom: 5 };
 
   return (
@@ -237,6 +284,8 @@ const ApiModal = ({ onClose }) => {
           <span style={{ fontWeight: 800, fontSize: 19 }}>API Integrations</span>
           <button onClick={onClose} style={{ background: "none", border: "none", cursor: "pointer", color: C.muted }}><Ic name="x" size={20} /></button>
         </div>
+
+        {/* Shopify */}
         <div style={{ marginBottom: 24 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
             <div style={{ width: 34, height: 34, background: "#96bf48", borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 900, color: "#fff", fontSize: 14 }}>S</div>
@@ -248,6 +297,8 @@ const ApiModal = ({ onClose }) => {
           <label style={lbl}>Admin API Token</label>
           <input value={shopifyKey} onChange={e => setShopifyKey(e.target.value)} type="password" placeholder="shpat_••••••••" style={inp} />
         </div>
+
+        {/* Bosta */}
         <div style={{ marginBottom: 24 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
             <div style={{ width: 34, height: 34, background: "#e63946", borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 900, color: "#fff", fontSize: 14 }}>B</div>
@@ -258,6 +309,7 @@ const ApiModal = ({ onClose }) => {
           <input value={bostaKey} onChange={e => setBostaKey(e.target.value)} type="password" placeholder="••••••••••••" style={inp} />
           <p style={{ fontSize: 11, color: C.muted, margin: "4px 0 0" }}>Get key from <a href="https://business.bosta.co" target="_blank" rel="noreferrer" style={{ color: C.brand }}>business.bosta.co</a> → Settings → API</p>
         </div>
+
         <button onClick={save} style={{ width: "100%", background: saved ? "#22c55e" : C.brand, color: "#fff", border: "none", borderRadius: 10, padding: "13px", fontWeight: 700, fontSize: 14, cursor: "pointer", transition: "background .3s" }}>
           {saved ? "✓ Saved!" : "Save API Keys"}
         </button>
@@ -266,48 +318,66 @@ const ApiModal = ({ onClose }) => {
   );
 };
 
-const Dashboard = () => (
-  <div>
-    <div style={{ background: C.white, borderRadius: 10, padding: "10px 16px", marginBottom: 20, fontSize: 13, color: C.muted, display: "flex", gap: 24, alignItems: "center", boxShadow: "0 1px 3px rgba(0,0,0,0.05)" }}>
-      <span style={{ fontWeight: 700, color: C.text }}>Today</span>
-      <span>Orders: <b>2</b></span>
-      <span>Revenue: <b>EGP 1,441</b></span>
-      <span>Ad spend: <b>EGP 0</b></span>
+/* ─── PAGES ──────────────────────────────────────────────────────────────────── */
+const Dashboard = () => {
+  const revMTD = 1441;
+  const ordersMTD = 2;
+  const codPending = 13650;
+  return (
+    <div>
+      {/* Date bar */}
+      <div style={{ background: C.white, borderRadius: 10, padding: "10px 16px", marginBottom: 20, fontSize: 13, color: C.muted, display: "flex", gap: 24, alignItems: "center", boxShadow: "0 1px 3px rgba(0,0,0,0.05)" }}>
+        <span style={{ fontWeight: 700, color: C.text }}>Today</span>
+        <span>Orders: <b>{ordersMTD}</b></span>
+        <span>Revenue: <b>EGP {revMTD.toLocaleString()}</b></span>
+        <span>Ad spend: <b>EGP 0</b></span>
+      </div>
+
+      {/* Metric grid */}
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14, marginBottom: 20 }}>
+        <MetricCard label="Revenue MTD" value={`EGP ${revMTD.toLocaleString()}`} sub="↑ +12% vs last month" accentColor={C.green} icon="dollar" />
+        <MetricCard label="Orders MTD" value={ordersMTD} sub="This month" accentColor={C.green} icon="orders" />
+        <MetricCard label="Profit Margin" value="100.0%" sub="No ad spend" accentColor={C.green} icon="trending" />
+        <MetricCard label="COD Pending" value={`EGP ${codPending.toLocaleString()}`} sub="Awaiting collection" accentColor={C.orange} icon="dollar" />
+        <MetricCard label="Blended ROAS" value="0.00x" sub="No ad spend recorded" accentColor={C.green} icon="trending" />
+        <MetricCard label="BEROAS" value="0.00x" sub="Breakeven target" accentColor={C.green} icon="trending" />
+      </div>
+
+      {/* Revenue chart */}
+      <div style={{ background: C.white, borderRadius: 14, padding: "22px 24px", boxShadow: "0 1px 3px rgba(0,0,0,0.06)" }}>
+        <div style={{ fontWeight: 700, fontSize: 15, marginBottom: 18, color: C.text }}>Revenue vs Ad Spend (30 days)</div>
+        <ResponsiveContainer width="100%" height={200}>
+          <LineChart data={CHART_DATA}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+            <XAxis dataKey="date" tick={{ fontSize: 11, fill: C.muted }} />
+            <YAxis tick={{ fontSize: 11, fill: C.muted }} />
+            <Tooltip contentStyle={{ borderRadius: 8, fontSize: 12 }} />
+            <Line type="monotone" dataKey="revenue" stroke={C.brand} strokeWidth={2.5} dot={false} />
+            <Line type="monotone" dataKey="adSpend" stroke={C.orange} strokeWidth={2} dot={false} strokeDasharray="4 4" />
+          </LineChart>
+        </ResponsiveContainer>
+        <div style={{ display: "flex", gap: 20, marginTop: 10, fontSize: 12, color: C.muted }}>
+          <span><span style={{ color: C.brand, fontWeight: 700 }}>—</span> Revenue</span>
+          <span><span style={{ color: C.orange, fontWeight: 700 }}>- -</span> Ad Spend</span>
+        </div>
+      </div>
     </div>
-    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14, marginBottom: 20 }}>
-      <MetricCard label="Revenue MTD" value="EGP 1,441" sub="↑ +12% vs last month" accentColor={C.green} icon="dollar" />
-      <MetricCard label="Orders MTD" value={2} sub="This month" accentColor={C.green} icon="orders" />
-      <MetricCard label="Profit Margin" value="100.0%" sub="No ad spend" accentColor={C.green} icon="trending" />
-      <MetricCard label="COD Pending" value="EGP 13,650" sub="Awaiting collection" accentColor={C.orange} icon="dollar" />
-      <MetricCard label="Blended ROAS" value="0.00x" sub="No ad spend recorded" accentColor={C.green} icon="trending" />
-      <MetricCard label="BEROAS" value="0.00x" sub="Breakeven target" accentColor={C.green} icon="trending" />
-    </div>
-    <div style={{ background: C.white, borderRadius: 14, padding: "22px 24px", boxShadow: "0 1px 3px rgba(0,0,0,0.06)" }}>
-      <div style={{ fontWeight: 700, fontSize: 15, marginBottom: 18, color: C.text }}>Revenue vs Ad Spend (30 days)</div>
-      <ResponsiveContainer width="100%" height={200}>
-        <LineChart data={CHART_DATA}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-          <XAxis dataKey="date" tick={{ fontSize: 11, fill: C.muted }} />
-          <YAxis tick={{ fontSize: 11, fill: C.muted }} />
-          <Tooltip contentStyle={{ borderRadius: 8, fontSize: 12 }} />
-          <Line type="monotone" dataKey="revenue" stroke={C.brand} strokeWidth={2.5} dot={false} />
-          <Line type="monotone" dataKey="adSpend" stroke={C.orange} strokeWidth={2} dot={false} strokeDasharray="4 4" />
-        </LineChart>
-      </ResponsiveContainer>
-    </div>
-  </div>
-);
+  );
+};
 
 const OrdersPage = ({ setBostaOrder }) => (
   <div>
     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 18 }}>
-      <div style={{ fontWeight: 800, fontSize: 22, color: C.text }}>Orders</div>
+      <div>
+        <div style={{ fontWeight: 800, fontSize: 22, color: C.text }}>Orders</div>
+        <div style={{ fontSize: 13, color: C.muted }}>May 10, 2026</div>
+      </div>
       <div style={{ display: "flex", gap: 10 }}>
-        <button style={{ display: "inline-flex", alignItems: "center", gap: 6, background: C.bg, color: C.text, border: 1px solid ${C.border}, borderRadius: 8, padding: "8px 16px", fontWeight: 600, fontSize: 13, cursor: "pointer" }}><Ic name="refresh" size={14} /> Sync Shopify</button>
-        <button style={{ display: "inline-flex", alignItems: "center", gap: 6, background: C.brand, color: "#fff", border: "none", borderRadius: 8, padding: "8px 16px", fontWeight: 700, fontSize: 13, cursor: "pointer" }}><Ic name="plus" size={14} /> New Order</button>
+        <button style={btnSec}><Ic name="refresh" size={14} /> Sync Shopify</button>
+        <button style={btnPri}><Ic name="plus" size={14} /> New Order</button>
       </div>
     </div>
-    <div style={{ background: C.white, borderRadius: 14, padding: 22, boxShadow: "0 1px 3px rgba(0,0,0,0.06)" }}>
+    <div style={cardStyle}>
       <table style={{ width: "100%", borderCollapse: "collapse" }}>
         <thead><tr>{["Order ID","Customer","City","Items","Total (EGP)","Status","Bosta",""].map(h => <TH key={h}>{h}</TH>)}</tr></thead>
         <tbody>
@@ -320,7 +390,13 @@ const OrdersPage = ({ setBostaOrder }) => (
               <TD bold>{o.total.toLocaleString()}</TD>
               <TD><Badge status={o.status} /></TD>
               <TD>{o.bosta ? <span style={{ fontSize: 12, color: "#5b21b6", fontWeight: 600 }}>{o.bosta}</span> : <span style={{ color: C.muted }}>—</span>}</TD>
-              <TD>{!o.bosta && o.status !== "delivered" && (<button onClick={() => setBostaOrder(o)} style={{ background: "#e63946", color: "#fff", border: "none", borderRadius: 7, padding: "5px 10px", fontSize: 11, fontWeight: 700, cursor: "pointer" }}>Ship</button>)}</TD>
+              <TD>
+                {!o.bosta && o.status !== "delivered" && (
+                  <button onClick={() => setBostaOrder(o)} style={{ background: "#e63946", color: "#fff", border: "none", borderRadius: 7, padding: "5px 10px", fontSize: 11, fontWeight: 700, cursor: "pointer" }}>
+                    Ship
+                  </button>
+                )}
+              </TD>
             </tr>
           ))}
         </tbody>
@@ -333,9 +409,9 @@ const StockPage = () => (
   <div>
     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 18 }}>
       <div style={{ fontWeight: 800, fontSize: 22, color: C.text }}>Stock Overview</div>
-      <button style={{ display: "inline-flex", alignItems: "center", gap: 6, background: C.brand, color: "#fff", border: "none", borderRadius: 8, padding: "8px 16px", fontWeight: 700, fontSize: 13, cursor: "pointer" }}><Ic name="plus" size={14} /> Add Product</button>
+      <button style={btnPri}><Ic name="plus" size={14} /> Add Product</button>
     </div>
-    <div style={{ background: C.white, borderRadius: 14, padding: 22, boxShadow: "0 1px 3px rgba(0,0,0,0.06)" }}>
+    <div style={cardStyle}>
       <table style={{ width: "100%", borderCollapse: "collapse" }}>
         <thead><tr>{["SKU","Product","Category","Stock","Price (EGP)","Status"].map(h => <TH key={h}>{h}</TH>)}</tr></thead>
         <tbody>
@@ -362,11 +438,11 @@ const FinancePage = () => {
     <div>
       <div style={{ fontWeight: 800, fontSize: 22, color: C.text, marginBottom: 18 }}>Finance Dashboard</div>
       <div style={{ display: "flex", gap: 14, marginBottom: 20, flexWrap: "wrap" }}>
-        <MetricCard label="Collected" value={EGP ${paid.toLocaleString()}} sub="Paid invoices" accentColor={C.green} icon="dollar" />
-        <MetricCard label="Outstanding" value={EGP ${unpaid.toLocaleString()}} sub="Unpaid" accentColor={C.red} icon="dollar" />
+        <MetricCard label="Collected" value={`EGP ${paid.toLocaleString()}`} sub="Paid invoices" accentColor={C.green} icon="dollar" />
+        <MetricCard label="Outstanding" value={`EGP ${unpaid.toLocaleString()}`} sub="Unpaid" accentColor={C.red} icon="dollar" />
         <MetricCard label="Total Invoices" value={INVOICES.length} accentColor={C.blue} icon="clipboard" />
       </div>
-      <div style={{ background: C.white, borderRadius: 14, padding: 22, boxShadow: "0 1px 3px rgba(0,0,0,0.06)" }}>
+      <div style={cardStyle}>
         <table style={{ width: "100%", borderCollapse: "collapse" }}>
           <thead><tr>{["Invoice","Order","Customer","Amount (EGP)","Date","Status"].map(h => <TH key={h}>{h}</TH>)}</tr></thead>
           <tbody>
@@ -391,11 +467,11 @@ const HRPage = () => (
   <div>
     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 18 }}>
       <div style={{ fontWeight: 800, fontSize: 22, color: C.text }}>Team</div>
-      <button style={{ display: "inline-flex", alignItems: "center", gap: 6, background: C.brand, color: "#fff", border: "none", borderRadius: 8, padding: "8px 16px", fontWeight: 700, fontSize: 13, cursor: "pointer" }}><Ic name="plus" size={14} /> Add Employee</button>
+      <button style={btnPri}><Ic name="plus" size={14} /> Add Employee</button>
     </div>
     <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
       {EMPLOYEES.map(e => (
-        <div key={e.id} style={{ background: C.white, borderRadius: 14, padding: 22, boxShadow: "0 1px 3px rgba(0,0,0,0.06)", flex: "1 1 220px", minWidth: 200 }}>
+        <div key={e.id} style={{ ...cardStyle, flex: "1 1 220px", minWidth: 200 }}>
           <div style={{ width: 46, height: 46, background: C.brand, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontWeight: 800, fontSize: 17, marginBottom: 12 }}>
             {e.name.split(" ").map(n => n[0]).join("")}
           </div>
@@ -413,7 +489,7 @@ const HRPage = () => (
 const CRMPage = () => (
   <div>
     <div style={{ fontWeight: 800, fontSize: 22, color: C.text, marginBottom: 18 }}>Customers</div>
-    <div style={{ background: C.white, borderRadius: 14, padding: 22, boxShadow: "0 1px 3px rgba(0,0,0,0.06)" }}>
+    <div style={cardStyle}>
       <table style={{ width: "100%", borderCollapse: "collapse" }}>
         <thead><tr>{["Customer","Email","City","Orders","Total Spent (EGP)","Tier"].map(h => <TH key={h}>{h}</TH>)}</tr></thead>
         <tbody>
@@ -441,13 +517,15 @@ const IntegrationsPage = ({ openApi }) => (
         { name: "Shopify", color: "#96bf48", desc: "Sync products, orders, and customers from your Shopify store.", docsUrl: "https://shopify.dev/docs/api/admin-rest" },
         { name: "Bosta", color: "#e63946", desc: "Create shipments, track deliveries, and manage COD collection.", docsUrl: "https://docs.bosta.co/api" },
       ].map(api => (
-        <div key={api.name} style={{ background: C.white, borderRadius: 14, padding: 22, boxShadow: "0 1px 3px rgba(0,0,0,0.06)", flex: "1 1 220px", minWidth: 220 }}>
-          <div style={{ width: 42, height: 42, background: api.color, borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontWeight: 900, fontSize: 18, marginBottom: 12 }}>{api.name[0]}</div>
+        <div key={api.name} style={{ ...cardStyle, flex: "1 1 220px", minWidth: 220 }}>
+          <div style={{ width: 42, height: 42, background: api.color, borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontWeight: 900, fontSize: 18, marginBottom: 12 }}>
+            {api.name[0]}
+          </div>
           <div style={{ fontWeight: 700, fontSize: 16 }}>{api.name}</div>
           <div style={{ fontSize: 13, color: C.muted, margin: "6px 0 14px" }}>{api.desc}</div>
           <div style={{ display: "flex", gap: 8 }}>
-            <button onClick={openApi} style={{ display: "inline-flex", alignItems: "center", gap: 6, background: C.brand, color: "#fff", border: "none", borderRadius: 8, padding: "8px 16px", fontWeight: 700, fontSize: 13, cursor: "pointer" }}>Configure</button>
-            <a href={api.docsUrl} target="_blank" rel="noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 6, background: C.bg, color: C.text, border: 1px solid ${C.border}, borderRadius: 8, padding: "8px 16px", fontWeight: 600, fontSize: 13, cursor: "pointer", textDecoration: "none" }}>Docs</a>
+            <button onClick={openApi} style={btnPri}>Configure</button>
+            <a href={api.docsUrl} target="_blank" rel="noreferrer" style={{ ...btnSec, textDecoration: "none" }}>Docs</a>
           </div>
         </div>
       ))}
@@ -461,38 +539,36 @@ const Placeholder = ({ title }) => (
     <div style={{ fontWeight: 700, fontSize: 18, color: C.text }}>{title}</div>
     <div style={{ fontSize: 13, marginTop: 6 }}>This module is coming soon.</div>
   </div>
-);const NavItem = ({ item, active, setActive, sub }) => (
-  <button onClick={() => setActive(item.key)} style={{
-    display: "flex", alignItems: "center", gap: 10, width: "100%",
-    padding: sub ? "8px 10px" : "9px 10px",
-    background: active === item.key ? "#eef2ff" : "none",
-    border: "none", borderRadius: 8, cursor: "pointer",
-    color: active === item.key ? C.brand : C.muted,
-    fontWeight: active === item.key ? 700 : 500,
-    fontSize: sub ? 13 : 13.5, fontFamily: "inherit", textAlign: "left", marginBottom: 1,
-  }}>
-    <Ic name={item.icon} size={15} color={active === item.key ? C.brand : C.muted} />
-    {item.label}
-  </button>
 );
 
+/* ─── SHARED STYLES ──────────────────────────────────────────────────────────── */
+const cardStyle = { background: C.white, borderRadius: 14, padding: 22, boxShadow: "0 1px 3px rgba(0,0,0,0.06)", marginBottom: 16 };
+const btnPri = { display: "inline-flex", alignItems: "center", gap: 6, background: C.brand, color: "#fff", border: "none", borderRadius: 8, padding: "8px 16px", fontWeight: 700, fontSize: 13, cursor: "pointer", fontFamily: "inherit" };
+const btnSec = { display: "inline-flex", alignItems: "center", gap: 6, background: C.bg, color: C.text, border: `1px solid ${C.border}`, borderRadius: 8, padding: "8px 16px", fontWeight: 600, fontSize: 13, cursor: "pointer", fontFamily: "inherit" };
+
+/* ─── SIDEBAR ────────────────────────────────────────────────────────────────── */
 const Sidebar = ({ active, setActive, open, setOpen }) => {
   const [collapsed, setCollapsed] = useState({});
   const toggle = key => setCollapsed(p => ({ ...p, [key]: !p[key] }));
 
   return (
     <>
+      {/* Overlay on mobile */}
       {open && <div onClick={() => setOpen(false)} style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.3)", zIndex: 99 }} />}
+
       <aside style={{
         position: "fixed", top: 0, left: open ? 0 : -260, bottom: 0, width: 248,
-        background: C.white, borderRight: 1px solid ${C.border},
+        background: C.white, borderRight: `1px solid ${C.border}`,
         display: "flex", flexDirection: "column", zIndex: 100,
         transition: "left 0.25s ease", overflowY: "auto",
       }}>
-        <div style={{ padding: "20px 20px 16px", borderBottom: 1px solid ${C.border}, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <span style={{ fontWeight: 800, fontSize: 20, color: C.brand, letterSpacing: -0.5 }}>Anetos ERP</span>
+        {/* Brand */}
+        <div style={{ padding: "20px 20px 16px", borderBottom: `1px solid ${C.border}`, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <span style={{ fontWeight: 800, fontSize: 20, color: C.brand, letterSpacing: -0.5, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Anetos ERP</span>
           <button onClick={() => setOpen(false)} style={{ background: "none", border: "none", cursor: "pointer", color: C.muted }}><Ic name="x" size={18} /></button>
         </div>
+
+        {/* Nav */}
         <nav style={{ flex: 1, padding: "12px 10px" }}>
           {NAV_SECTIONS.map(sec => {
             if (!sec.label) {
@@ -523,13 +599,33 @@ const Sidebar = ({ active, setActive, open, setOpen }) => {
             );
           })}
         </nav>
-        <div style={{ padding: "14px 20px", borderTop: 1px solid ${C.border}, fontSize: 11, color: C.muted }}>
+
+        <div style={{ padding: "14px 20px", borderTop: `1px solid ${C.border}`, fontSize: 11, color: C.muted }}>
           Anetos ERP v1.0
         </div>
       </aside>
     </>
   );
-};export default function App() {
+};
+
+const NavItem = ({ item, active, setActive, sub }) => (
+  <button onClick={() => setActive(item.key)} style={{
+    display: "flex", alignItems: "center", gap: 10, width: "100%",
+    padding: sub ? "8px 10px" : "9px 10px",
+    background: active === item.key ? "#eef2ff" : "none",
+    border: "none", borderRadius: 8, cursor: "pointer",
+    color: active === item.key ? C.brand : C.muted,
+    fontWeight: active === item.key ? 700 : 500,
+    fontSize: sub ? 13 : 13.5, fontFamily: "inherit", textAlign: "left",
+    marginBottom: 1,
+  }}>
+    <Ic name={item.icon} size={15} color={active === item.key ? C.brand : C.muted} />
+    {item.label}
+  </button>
+);
+
+/* ─── APP ────────────────────────────────────────────────────────────────────── */
+export default function App() {
   const [active, setActive] = useState("dashboard");
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [bostaOrder, setBostaOrder] = useState(null);
@@ -574,23 +670,27 @@ const Sidebar = ({ active, setActive, open, setOpen }) => {
 
       <Sidebar active={active} setActive={setActive} open={sidebarOpen} setOpen={setSidebarOpen} />
 
+      {/* Main layout */}
       <div style={{ marginLeft: sidebarOpen ? 248 : 0, transition: "margin-left 0.25s ease", minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+        {/* Topbar */}
         <header style={{
           position: "sticky", top: 0, zIndex: 50,
-          background: C.white, borderBottom: 1px solid ${C.border},
+          background: C.white, borderBottom: `1px solid ${C.border}`,
           padding: "12px 24px", display: "flex", alignItems: "center", gap: 16,
         }}>
           <button onClick={() => setSidebarOpen(o => !o)} style={{ background: "none", border: "none", cursor: "pointer", color: C.muted, display: "flex", alignItems: "center" }}>
             <Ic name="menu" size={20} />
           </button>
-          <span style={{ fontWeight: 800, fontSize: 16, color: C.brand }}>Anetos ERP</span>
+          <span style={{ fontWeight: 800, fontSize: 16, color: C.brand, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Anetos ERP</span>
           <div style={{ flex: 1 }} />
           <button style={{ background: "none", border: "none", cursor: "pointer", color: C.muted }}><Ic name="monitor" size={20} /></button>
           <button onClick={() => setApiOpen(true)} style={{ background: "none", border: "none", cursor: "pointer", color: C.muted }}><Ic name="bell" size={20} /></button>
           <div style={{ width: 34, height: 34, background: C.brand, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontWeight: 800, fontSize: 14 }}>A</div>
         </header>
 
+        {/* Content */}
         <main style={{ flex: 1, padding: "24px 28px", maxWidth: 1200 }}>
+          {/* Page header */}
           <div style={{ marginBottom: 22 }}>
             <h1 style={{ fontWeight: 800, fontSize: 26, color: C.text, letterSpacing: -0.5 }}>{pageTitle[active] || active}</h1>
             <div style={{ fontSize: 13, color: C.muted, marginTop: 2 }}>May 10, 2026</div>
